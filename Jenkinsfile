@@ -10,10 +10,8 @@ pipeline {
             }
         }
         stage('package') {
+            tools { jdk 'JDK_17' }
             steps {
-                tools { 
-                    jdk 'JDK_17' 
-                    }
                 sh '$MAVEN GOAL' 
             }
         }
