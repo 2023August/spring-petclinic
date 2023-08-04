@@ -5,8 +5,8 @@ pipeline {
     stages {
         stage('VCS') {
             steps {
-                git branch: 'declarative',
-                    url: 'https://github.com/2023August/spring-petclinic.git'
+                git url: 'https://github.com/2023August/spring-petclinic.git',
+                    branch: 'declarative'
             }
         }
         stage('package') {
@@ -16,3 +16,5 @@ pipeline {
         }
     }
 }
+
+
