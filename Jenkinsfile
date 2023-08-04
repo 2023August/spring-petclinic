@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'JDK_17' }
+    agent { label 'MAVEN_JDK' }
     triggers { pollSCM('* * * * *') }
     parameters { choice(name: 'MAVEN_GOAL', choices: ['package', 'install', 'clean']) }
     stages {
@@ -14,6 +14,12 @@ pipeline {
             steps {
                 sh  "mvn ${params.MAVEN_GOAL}"
             }
+        }
+        stage('post build') {
+            steps {
+                archiveArtifacts artifacts: '**/target/spring-petclinic-3.1.0-SNAPSHOT.jar',
+                                 onlyIfSuccessful: true
+            }   junit testResults: '**/TEST-*.xml'
         }
     }
 }
