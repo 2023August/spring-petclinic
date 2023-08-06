@@ -17,7 +17,7 @@ pipeline {
         }
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SONAR_CLOUD') {
+                withSonarQubeEnv('SONAR_CLOUD_TOKEN') {
                 sh 'mvn clean verify sonar:sonar -Dsonar.token=faa4fa0f55ea846e40e39782b8fd823fa0eccdbb -Dsonar.organization=springpetclinic11 -Dsonar.projectKey=springpetclinic11'
                 }
             }            
