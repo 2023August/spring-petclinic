@@ -15,6 +15,13 @@ pipeline {
                 sh  "mvn ${params.MAVEN_GOAL}"
             }
         }
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SONAR_CLOUD') {
+                sh 'mvn clean verify sonar:sonar -Dsonar.token=faa4fa0f55ea846e40e39782b8fd823fa0eccdbb -Dsonar.organization=springpetclinic11 -Dsonar.projectKey=springpetclinic11'
+                }
+            }            
+        }
        stage('post build') {
             steps {
                 archiveArtifacts artifacts: '**/target/spring-petclinic-3.1.0-SNAPSHOT.jar',
