@@ -1,12 +1,12 @@
 pipeline {
     agent { label 'MAVEN_JDK' }
-    triggers { pollSCM('* * * * *') }
+    triggers { pollSCM('* 23 * * 1-5') }
     parameters { choice(name: 'MAVEN_GOAL', choices: ['package', 'install', 'clean']) }
     stages {
         stage('VCS') {
             steps {
                 git url: 'https://github.com/2023August/spring-petclinic.git',
-                    branch: 'declarative'
+                    branch: 'pt'
             }
         }
         stage('package') {
